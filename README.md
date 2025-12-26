@@ -2,8 +2,24 @@
 
 The system processes the TriviaQA dataset to answer questions with relevant context retrieval and generation.
 
-## Architecture Overview
 
+## Project Structure
+```
+rag/
+├── app/
+│   ├── config.py       # Configuration management
+│   ├── utils.py        # Utility functions
+│   ├── ingest.py       # Data ingestion pipeline
+│   ├── rag.py          # RAG pipeline implementation
+│   └── main.py         # FastAPI application
+├── data/               # Dataset storage (gitignored)
+├── faiss_index/        # Persisted FAISS index (gitignored)
+├── evaluation/         # Evaluation results
+├── requirements.txt    # Python dependencies
+├── dockerfile          # Container definition
+└── .env               # Environment configuration
+```
+## Architecture Overview
 ### Pipeline Flow
 ```
 User Query
@@ -100,7 +116,7 @@ Final Answer + Retrieved Context
 
 **Performance Characteristics**:
 - First query: 3-4 seconds (model loading)
-- Subsequent queries: 1-1.5 seconds
+- Subsequent queries: 2-2.5 seconds
 - Acceptable latency for interactive applications
 
 ## Local Setup
@@ -221,23 +237,18 @@ docker run --network=host rag-system
 - Chunk Size: 512 tokens
 - Chunk Overlap: 50 tokens
 
-### Results
+### Performance Summary
 
-Evaluated on 15 test questions from TriviaQA:
+**Retrieval Accuracy**
+- Context contains answer: (6/8)
+- Context partially contains answer: (2/8)
+- No relevant context found: 0%
 
-**Retrieval Performance**:
-- Context contains answer: 93.3% (14/15)
-- Partial context: 6.7% (1/15)
-- No relevant context: 0%
+**Latency:**
 
-**Answer Quality**:
-- Correct answers: 86.7% (13/15)
-- Partially correct: 13.3% (2/15)
-- Incorrect: 0%
-
-**Latency**:
 - Average: 2284ms
 - Range: 1767ms - 4034ms
+- Note: Latency includes retrieval (approximately 100ms) and LLM generation (approximately 1700ms).
 
 ### Analysis
 
@@ -274,19 +285,3 @@ LLM_MAX_TOKENS=512
 MAX_DOCUMENTS=2000
 ```
 
-## Project Structure
-```
-rag/
-├── app/
-│   ├── config.py       # Configuration management
-│   ├── utils.py        # Utility functions
-│   ├── ingest.py       # Data ingestion pipeline
-│   ├── rag.py          # RAG pipeline implementation
-│   └── main.py         # FastAPI application
-├── data/               # Dataset storage (gitignored)
-├── faiss_index/        # Persisted FAISS index (gitignored)
-├── evaluation/         # Evaluation results
-├── requirements.txt    # Python dependencies
-├── dockerfile          # Container definition
-└── .env               # Environment configuration
-```
