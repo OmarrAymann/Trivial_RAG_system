@@ -9,7 +9,7 @@ rag/
 ├── app/
 │   ├── config.py       # Configuration management
 │   ├── utils.py        # Utility functions
-│   ├── ingest.py       # Data ingestion pipeline
+│   ├── process.py       # start pipeline
 │   ├── rag.py          # RAG pipeline implementation
 │   └── main.py         # FastAPI application
 ├── data/               # Dataset storage (gitignored)
