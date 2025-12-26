@@ -125,11 +125,10 @@ A system returning raw top-5 chunks without LLM generation would require users t
 ### LLM-Only Baseline
 Without retrieval, the LLM would rely solely on parametric knowledge from pre-training. This approach fails on queries outside the training distribution and cannot incorporate updated or specialized information.
 
-### Cloud API Alternative
-Using OpenAI GPT-4 would reduce latency to approximately 300ms but incur costs of $0.01-0.03 per query. At 1000 queries/day, monthly costs would reach $300-900 versus zero for the current system.
 
 ## Conclusion
 
-The system demonstrates strong performance for factual question-answering within its operational constraints. Retrieval accuracy of 93.3% and answer correctness of 86.7% meet production quality thresholds for knowledge retrieval applications. The 1.3-second average latency is acceptable for interactive use cases where cost and privacy considerations outweigh response speed requirements.
+The system demonstrates strong performance for factual question-answering within its operational constraints. Retrieval accuracy of 93.3% and answer correctness of 86.7% meet production quality thresholds for knowledge retrieval applications. The 1.7-second average latency is acceptable for interactive use cases where cost and privacy considerations outweigh response speed requirements.
 
 Primary improvement opportunities lie in hybrid search implementation, response caching, and dataset expansion. The architecture provides a solid foundation for production deployment with straightforward scaling paths as usage grows.
+
